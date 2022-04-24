@@ -43,6 +43,15 @@
     path: "{{ server_location }}/server/node-token"
     mode: "{{ p.stat.mode }}"
 
+- name: create registry configuration
+  copy:
+    dest: "/etc/rancher/k3s/registries.yaml"
+    content: |
+      mirrors:
+        "192.168.0.200:5000":
+          endpoint:
+            - "http://192.168.0.200:5000"
+
 - name: create directory .kube
   file:
     path: ~{{ ansible_user }}/.kube
